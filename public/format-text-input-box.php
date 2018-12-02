@@ -15,11 +15,12 @@ $arrows = substr_count($text,">");
 
 if (($arrows > 0) AND ($tabs == 0))
   {
-  echo "This is FASTA";
+  $sequences = texttofasta($text);
+  $sequences = $sequences['Sequences'];
   }
 elseif (($arrows == 0) AND ($tabs > 0))
   {
-  echo "This is TSV";
+  echo "This is a TSV";
   }
 elseif (($arrows == 0) AND ($tabs == 0))
   {
@@ -29,4 +30,6 @@ else
   {
   echo "Error, input is ambiguous, it should either be FASTA, tab separated, or 1 line per sequence, do not have any tabs or > in your input unless you intend it to be FASTA or TSV input.";
   }
+
+print_r($sequences);
 ?>
