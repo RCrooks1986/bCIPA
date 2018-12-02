@@ -1,14 +1,17 @@
 <?php
-//Sequences to asssign Williams scores to
-$sequences = array();
-$sequences['A'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
-$sequences['A'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
-$sequences['A'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
-$sequences['A'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
-$sequences['B'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
-$sequences['B'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
-$sequences['B'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
-$sequences['B'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
+//Sequences to use if sequences not already set
+if (isset($sequences) == false)
+  {
+  $sequences = array();
+  $sequences['A'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
+  $sequences['A'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
+  $sequences['A'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
+  $sequences['A'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
+  $sequences['B'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
+  $sequences['B'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
+  $sequences['B'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
+  $sequences['B'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
+  }
 
 //Iteratively create interactome
 $interactions = array();
