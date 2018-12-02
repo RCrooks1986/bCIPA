@@ -46,5 +46,13 @@ else
   echo "Error, input is ambiguous, it should either be FASTA, tab separated, or 1 line per sequence, do not have any tabs or > in your input unless you intend it to be FASTA or TSV input.";
   }
 
+//Run validation check on sequences and remove any that are not legal protein sequences
+$legals = str_split("ACDEFGHIKLMNPQRSTVWY");
+foreach ($sequences as $sequenceskey=>$sequence)
+  {
+  if (checklegal($sequence['Sequence'],$legals) == false)
+    unset($sequences[$sequenceskey]);
+  }
+
 print_r($sequences);
 ?>

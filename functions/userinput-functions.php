@@ -13,7 +13,7 @@ function legalcharactersonly($string,$legals)
 	if (is_array($legals) == false)
 		$legals = str_split($legals);
 
-	if ($string != '')
+	if (strlen($string) > 0)
 		{
 		//Convert string to array
 		$string = str_split($string);
@@ -21,14 +21,11 @@ function legalcharactersonly($string,$legals)
 		$output = "";
 
 		//Loop through each character
-		$key = 0;
-		$count = count($string);
-		while ($key < $count)
+		foreach ($string as $character)
 			{
 			//Add character to output if in legals array
-			if (in_array($string[$key],$legals))
-				$output = $output . $string[$key];
-			$key++;
+			if (in_array($character,$legals) == true)
+				$output = $output . $character;
 			}
 
 		Return $output;
