@@ -1,3 +1,27 @@
 <?php
-$text = ">Sequence1\n\rTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n\r>Sequence2\n\rTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n\r>Sequence3\n\rTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+$text = ">Sequence1\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence3\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = "THERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = "Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = ">Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+
+//Number of tabs and arrows to work out what the input type is
+$tabs = substr_count($text,"\t");
+$arrows = substr_count($text,">");
+
+if (($arrows > 0) AND ($tabs == 0))
+  {
+  echo "This is FASTA";
+  }
+elseif (($arrows == 0) AND ($tabs > 0))
+  {
+  echo "This is TSV";
+  }
+elseif (($arrows == 0) AND ($tabs == 0))
+  {
+  echo "This is one line per sequence";
+  }
+else
+  {
+  echo "Error, input is ambiguous, it should either be FASTA, tab separated, or 1 line per sequence, do not have any tabs or > in your input unless you intend it to be FASTA or TSV input.";
+  }
 ?>
