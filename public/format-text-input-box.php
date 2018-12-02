@@ -6,6 +6,9 @@ $text = ">Sequence1\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\nTHERSERFER
 //$text = "Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
 //$text = ">Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
 
+//Standardise the new lines of the text input
+$text = standardisenewlines($text);
+
 //Number of tabs and arrows to work out what the input type is
 $tabs = substr_count($text,"\t");
 $arrows = substr_count($text,">");
