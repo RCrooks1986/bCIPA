@@ -15,12 +15,15 @@ $arrows = substr_count($text,">");
 
 if (($arrows > 0) AND ($tabs == 0))
   {
+  //Input as a FASTA formatted text
   $sequences = texttofasta($text);
   $sequences = $sequences['Sequences'];
   }
 elseif (($arrows == 0) AND ($tabs > 0))
   {
-  echo "This is a TSV";
+  //Import as a table
+  $headers = array("Name","Sequence");
+  $sequences = texttoarraytable($text,$headers);
   }
 elseif (($arrows == 0) AND ($tabs == 0))
   {
