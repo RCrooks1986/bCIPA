@@ -1,10 +1,10 @@
 <?php
 include 'required-files.php';
 
-$text = ">Sequence1\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence3\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
-//$text = "THERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
-//$text = "Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
-//$text = ">Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = ">Sequence1\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence3\nTHERSERFERSBZZZZEEEPIYTGMNV\n>Sequence4\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+$text = "THERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nTHERSERFERSBZZZZEEEPIYTGMNV\nTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = "Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\nSequence3\tTHERSERFERSBZZZZEEEPIYTGMNV\nSequence4\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
+//$text = ">Sequence1\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence2\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV\n>Sequence3\tTHERSERFERSBZZZZEEEPIYTGMNV\n>Sequence4\tTHERSERFERSKLSFDEDDESSEWEEEPIYTGMNV";
 
 //Standardise the new lines of the text input
 $text = standardisenewlines($text);
@@ -27,7 +27,19 @@ elseif (($arrows == 0) AND ($tabs > 0))
   }
 elseif (($arrows == 0) AND ($tabs == 0))
   {
-  echo "This is one line per sequence";
+  //Import as one sequence per line
+  $sequences = explode("\n",$text);
+  $sequencecount = 1;
+
+  //Give each sequence a default name and format as the other sequences are formatted
+  foreach ($sequences as $sequencekey=>$sequence)
+    {
+    $sequencename = "Protein " . $sequencecount;
+    $sequenceline = array("Name"=>$sequencename,"Sequence"=>$sequence);
+    $sequencecount++;
+
+    $sequences[$sequencekey] = $sequenceline;
+    }
   }
 else
   {
