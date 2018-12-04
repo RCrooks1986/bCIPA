@@ -62,11 +62,4 @@ $boxsize = 24;
 $midbox = $boxsize/2;
 $heatcolumnsreturn = 0-($boxsize*(count($columns)-1));
 $heatrowsreturn = 0-($boxsize*(count($rows)-1));
-
-echo $rowsize . "<br>";
-echo $columnsize . "<br>";
-echo $boxsize . "<br>";
-echo $midbox . "<br>";
-echo $heatcolumnsreturn . "<br>";
-echo $heatrowsreturn . "<br>";
 ?>
