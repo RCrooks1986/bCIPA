@@ -88,6 +88,7 @@ foreach ($columns as $columnkey=>$column)
     }
   else
     {
+    //Translate to the new position for column on subsequent rows
     $javascript = $javascript . 'ctx.translate(0,' . $boxsize . ');';
     }
   $javascript = $javascript . 'ctx.rect(0,0,' . $columnsize . ',' . $boxsize . ');';
@@ -98,6 +99,15 @@ foreach ($columns as $columnkey=>$column)
   $javascript = $javascript . 'ctx.fillStyle = "#000000";';
   $javascript = $javascript . 'ctx.fillText("' . $column . '",4,' . $midbox . ');';
   }
+
+//Rotate back to standard orientation
+$javascript = $javascript . 'ctx.rotate(90*Math.PI/180);';
+
+$javascript = $javascript . 'ctx.beginPath();';
+$javascript = $javascript . 'ctx.translate(' . $boxsize . ',0);';
+$javascript = $javascript . 'ctx.fillStyle="rgb(0,0,0)";';
+$negativecolumnsize = 0-$columnsize;
+$javascript = $javascript . 'ctx.fillRect(0,0,' . $rowsize . ',' . $negativecolumnsize . ');';
 
 // Display HTML chart
 ?>
