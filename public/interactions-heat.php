@@ -73,6 +73,8 @@ $heatcolumnsreturn = 0-($boxsize*(count($columns)-1));
 $heatrowsreturn = 0-($boxsize*(count($rows)-1));
 $canvaswidth = ($boxsize*count($columns))+$rowsize+2;
 $canvasheight = ($boxsize*count($rows))+$rowsize+2;
+$outlineheight = $canvasheight-2;
+$outlinewidth = $canvaswidth-2;
 
 //Canvas HTML with name of canvas
 $canvashtml = '<canvas id="' . $canvasname . '" width="' . $canvaswidth . '" height="' . $canvasheight . '"></canvas>';
@@ -184,9 +186,13 @@ foreach ($rows as $row)
   $javascript = $javascript . 'ctx.translate(' . $heatcolumnsreturn . ',' . $boxsize . ');';
   }
 
-$heatbox = $interactions[0];
+//Translate back to top left corner
+$backtotop = 0-$outlineheight;
+$javascript = $javascript . 'ctx.translate(0,' . $backtotop . ');';
 
-
+$javascript = $javascript . 'ctx.beginPath();';
+$javascript = $javascript . 'ctx.rect(0,0,' . $outlineheight . ',' . $outlinewidth . ');';
+$javascript = $javascript . 'ctx.stroke();';
 
 // Display HTML chart
 ?>
