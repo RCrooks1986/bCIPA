@@ -2,7 +2,7 @@
 //Directory where functions are stored
 $directory = "../functions/";
 
-$functions = array("williams","bcipa","fasta","userinput");
+$functions = array("williams","bcipa","fasta","userinput","maths","heat");
 
 foreach($functions as $file)
   {
