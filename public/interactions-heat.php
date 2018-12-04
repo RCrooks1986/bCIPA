@@ -15,7 +15,7 @@ function uniquefield($array,$field)
 
 function fieldsize($array)
   {
-  $spaceperletter = 7;
+  $spaceperletter = 9;
   //Work out the size of the cell needed
   $size = 0;
   foreach ($array as $element)
@@ -53,6 +53,10 @@ if (isset($interactions) == false)
 //The field to chart the Tm of
 $heattomap = "bCIPATm";
 
+//The name of the heat chart is specified here if it's not specified elsewhere
+if (isset($canvasname) == false)
+  $canvasname = "Heatchart";
+
 //Get the columns and rows and their sizes for building the diagram
 $rows = uniquefield($interactions,"Name1");
 $rowsize = fieldsize($rows);
@@ -62,4 +66,50 @@ $boxsize = 24;
 $midbox = $boxsize/2;
 $heatcolumnsreturn = 0-($boxsize*(count($columns)-1));
 $heatrowsreturn = 0-($boxsize*(count($rows)-1));
+$canvaswidth = ($boxsize*count($columns))+$rowsize+1;
+$canvasheight = ($boxsize*count($rows))+$rowsize+1;
+
+//Canvas HTML with name of canvas
+$canvashtml = '<canvas id="' . $canvasname . '" width="' . $canvaswidth . '" height="' . $canvasheight . '"></canvas>';
+
+$javascript = 'var canvas = document.getElementById("' . $canvasname . '");';
+$javascript = $javascript . 'var ctx = canvas.getContext("2d");';
+
+foreach ($columns as $columnkey=>$column)
+  {
+  //Add columns to javascript
+  $javascript = $javascript . 'ctx.beginPath();';
+  if ($columnkey == 0)
+    {
+    //Add rotation if it is the first element
+    $translatedown = $columnsize+1;
+    $javascript = $javascript . 'ctx.translate(1,' . $translatedown . ');';
+    $javascript = $javascript . 'ctx.rotate(-90*Math.PI/180);';
+    }
+  else
+    {
+    $javascript = $javascript . 'ctx.translate(0,' . $boxsize . ');';
+    }
+  $javascript = $javascript . 'ctx.rect(0,0,' . $columnsize . ',' . $boxsize . ');';
+  $javascript = $javascript . 'ctx.stroke();';
+  $javascript = $javascript . 'ctx.font="15px Arial";';
+  $javascript = $javascript . 'ctx.textAlign="start";';
+  $javascript = $javascript . 'ctx.textBaseline="middle";';
+  $javascript = $javascript . 'ctx.fillStyle = "#000000";';
+  $javascript = $javascript . 'ctx.fillText("' . $column . '",4,' . $midbox . ');';
+  }
+
+// Display HTML chart
 ?>
+<html>
+<head>
+  <title>Test Graph</title>
+</head>
+<body>
+<?php echo $canvashtml; ?>
+
+<script>
+<?php echo $javascript; ?>
+</script>
+</body>
+</html>
