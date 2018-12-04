@@ -66,8 +66,8 @@ $boxsize = 24;
 $midbox = $boxsize/2;
 $heatcolumnsreturn = 0-($boxsize*(count($columns)-1));
 $heatrowsreturn = 0-($boxsize*(count($rows)-1));
-$canvaswidth = ($boxsize*count($columns))+$rowsize+1;
-$canvasheight = ($boxsize*count($rows))+$rowsize+1;
+$canvaswidth = ($boxsize*count($columns))+$rowsize+2;
+$canvasheight = ($boxsize*count($rows))+$rowsize+2;
 
 //Canvas HTML with name of canvas
 $canvashtml = '<canvas id="' . $canvasname . '" width="' . $canvaswidth . '" height="' . $canvasheight . '"></canvas>';
@@ -103,11 +103,30 @@ foreach ($columns as $columnkey=>$column)
 //Rotate back to standard orientation
 $javascript = $javascript . 'ctx.rotate(90*Math.PI/180);';
 
+//Draw top right black box
 $javascript = $javascript . 'ctx.beginPath();';
 $javascript = $javascript . 'ctx.translate(' . $boxsize . ',0);';
 $javascript = $javascript . 'ctx.fillStyle="rgb(0,0,0)";';
 $negativecolumnsize = 0-$columnsize;
 $javascript = $javascript . 'ctx.fillRect(0,0,' . $rowsize . ',' . $negativecolumnsize . ');';
+
+foreach ($rows as $rowkey=>$row)
+  {
+  //Add columns to javascript
+  $javascript = $javascript . 'ctx.beginPath();';
+  if ($rowkey > 0)
+    {
+    //Translate down by box size if not the first element
+    $javascript = $javascript . 'ctx.translate(0,' . $boxsize . ');';
+    }
+  $javascript = $javascript . 'ctx.rect(0,0,' . $rowsize . ',' . $boxsize . ');';
+  $javascript = $javascript . 'ctx.stroke();';
+  $javascript = $javascript . 'ctx.font="15px Arial";';
+  $javascript = $javascript . 'ctx.textAlign="start";';
+  $javascript = $javascript . 'ctx.textBaseline="middle";';
+  $javascript = $javascript . 'ctx.fillStyle = "#000000";';
+  $javascript = $javascript . 'ctx.fillText("' . $row . '",4,' . $midbox . ');';
+  }
 
 // Display HTML chart
 ?>
