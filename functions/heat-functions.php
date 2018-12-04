@@ -26,7 +26,7 @@ function heatcolour($fraction,$type="Default")
 		$fraction = 0;
 
 	//Check that the specified colour scheme is allowed, otherwise set to Default
-	$colourschemes = ("Default","BlueRed","Greyscale","Reds","Blues","Greens","Yellows","Cyans","Magentas","Consistent","Light","Dark");
+	$colourschemes = array("Default","BlueRed","Greyscale","Reds","Blues","Greens","Yellows","Cyans","Magentas","Consistent","Light","Dark");
 	if (in_array($type,$colourschemes) == false)
 	 	$type = "Default";
 
@@ -354,7 +354,7 @@ function valuetocolour($x,$min,$max,$type="Default")
 		$fraction = normalisevalue($x,$min,$max);
 
 		//Calculate colour
-		$colour = heatmap($fraction,$type);
+		$colour = heatcolour($fraction,$type);
 		}
 	else
 		//Default to white if data is not numeric
