@@ -145,8 +145,6 @@ foreach ($rows as $row)
   {
   foreach ($columns as $columnskey=>$column)
     {
-    echo $row . "," . $column;
-
     if ($columnskey > 0)
       $javascript = $javascript . 'ctx.translate(' . $boxsize . ',0);';
 
@@ -167,7 +165,6 @@ foreach ($rows as $row)
       $javascript = $javascript . 'ctx.textBaseline="middle";';
       $javascript = $javascript . 'ctx.fillStyle = "rgb(0,0,0)";';
       $javascript = $javascript . 'ctx.fillText(' . $interactions[$interactionkey][$heattomap] . ',' . $midbox . ',' . $midbox . ');';
-      echo " = Present";
       $interactionkey++;
       }
     else
@@ -179,8 +176,6 @@ foreach ($rows as $row)
       $javascript = $javascript . 'ctx.rect(0,0,' . $boxsize . ',' . $boxsize . ');';
       $javascript = $javascript . 'ctx.stroke();';
       }
-
-    echo "<br>";
     }
   //At the end of the columns move to new row
   $javascript = $javascript . 'ctx.translate(' . $heatcolumnsreturn . ',' . $boxsize . ');';
@@ -193,18 +188,4 @@ $javascript = $javascript . 'ctx.translate(0,' . $backtotop . ');';
 $javascript = $javascript . 'ctx.beginPath();';
 $javascript = $javascript . 'ctx.rect(0,0,' . $outlineheight . ',' . $outlinewidth . ');';
 $javascript = $javascript . 'ctx.stroke();';
-
-// Display HTML chart
 ?>
-<html>
-<head>
-  <title>Test Graph</title>
-</head>
-<body>
-<?php echo $canvashtml; ?>
-
-<script>
-<?php echo $javascript; ?>
-</script>
-</body>
-</html>
