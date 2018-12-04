@@ -29,6 +29,8 @@ function fieldsize($array)
   Return $size;
   }
 
+include_once 'required-files.php';
+
 //Test interactions to use if they are not already specified
 if (isset($interactions) == false)
   {
@@ -52,6 +54,8 @@ if (isset($interactions) == false)
 
 //The field to chart the Tm of
 $heattomap = "bCIPATm";
+//Colourscheme to use
+$heatcolourscheme = "Default";
 
 //The name of the heat chart is specified here if it's not specified elsewhere
 if (isset($canvasname) == false)
@@ -64,6 +68,7 @@ $columns = uniquefield($interactions,"Name2");
 $columnsize = fieldsize($columns);
 $boxsize = 24;
 $midbox = $boxsize/2;
+$singleboxback = 0-$boxsize;
 $heatcolumnsreturn = 0-($boxsize*(count($columns)-1));
 $heatrowsreturn = 0-($boxsize*(count($rows)-1));
 $canvaswidth = ($boxsize*count($columns))+$rowsize+2;
@@ -124,9 +129,64 @@ foreach ($rows as $rowkey=>$row)
   $javascript = $javascript . 'ctx.font="15px Arial";';
   $javascript = $javascript . 'ctx.textAlign="start";';
   $javascript = $javascript . 'ctx.textBaseline="middle";';
-  $javascript = $javascript . 'ctx.fillStyle = "#000000";';
+  $javascript = $javascript . 'ctx.fillStyle = "rgb(0,0,0)";';
   $javascript = $javascript . 'ctx.fillText("' . $row . '",4,' . $midbox . ');';
   }
+
+//Translate to top left corner of heat chart
+$javascript = $javascript . 'ctx.translate(' . $heatcolumnsreturn . ',' . $heatrowsreturn . ');';
+$javascript = $javascript . 'ctx.translate(' . $singleboxback . ',0);';
+
+//Loop through columns and rows to manage the translation correctly
+$interactionkey = 0;
+foreach ($rows as $row)
+  {
+  foreach ($columns as $columnskey=>$column)
+    {
+    echo $row . "," . $column;
+
+    if ($columnskey > 0)
+      $javascript = $javascript . 'ctx.translate(' . $boxsize . ',0);';
+
+    //Check that the columns and rows match the Name2 and Name1 columns respectively
+    if (($interactions[$interactionkey]['Name2'] == $column) AND ($interactions[$interactionkey]['Name1'] == $row))
+      {
+      //Define the heat colour within a range of 0 - 60 degrees
+      $heatcolour = valuetocolour($interactions[$interactionkey][$heattomap],0,60,$heatcolourscheme);
+
+      //Echo a heat box if there is a match
+      $javascript = $javascript . 'ctx.beginPath();';
+      $javascript = $javascript . 'ctx.fillStyle="' . $heatcolour . '";';
+      $javascript = $javascript . 'ctx.fillRect(0,0,' . $boxsize . ',' . $boxsize . ');';
+      $javascript = $javascript . 'ctx.rect(0,0,' . $boxsize . ',' . $boxsize . ');';
+      $javascript = $javascript . 'ctx.stroke();';
+      $javascript = $javascript . 'ctx.font="15px Arial";';
+      $javascript = $javascript . 'ctx.textAlign="center";';
+      $javascript = $javascript . 'ctx.textBaseline="middle";';
+      $javascript = $javascript . 'ctx.fillStyle = "rgb(0,0,0)";';
+      $javascript = $javascript . 'ctx.fillText(' . $interactions[$interactionkey][$heattomap] . ',' . $midbox . ',' . $midbox . ');';
+      echo " = Present";
+      $interactionkey++;
+      }
+    else
+      {
+      //Echo a black box if there is no match, this happens until the columns/rows catch up with the interactions
+      $javascript = $javascript . 'ctx.beginPath();';
+      $javascript = $javascript . 'ctx.fillStyle="rgb(0,0,0)";';
+      $javascript = $javascript . 'ctx.fillRect(0,0,' . $boxsize . ',' . $boxsize . ');';
+      $javascript = $javascript . 'ctx.rect(0,0,' . $boxsize . ',' . $boxsize . ');';
+      $javascript = $javascript . 'ctx.stroke();';
+      }
+
+    echo "<br>";
+    }
+  //At the end of the columns move to new row
+  $javascript = $javascript . 'ctx.translate(' . $heatcolumnsreturn . ',' . $boxsize . ');';
+  }
+
+$heatbox = $interactions[0];
+
+
 
 // Display HTML chart
 ?>
