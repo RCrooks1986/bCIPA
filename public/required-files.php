@@ -8,7 +8,4 @@ foreach($functions as $file)
   {
   include_once $directory . $file . '-functions.php';
   }
-
-//include_once $directory . 'williams-functions.php';
-//include_once $directory . 'bcipa-functions.php';
 ?>
