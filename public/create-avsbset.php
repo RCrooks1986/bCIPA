@@ -1,16 +1,17 @@
 <?php
 //Sequences to use if sequences not already set
-if (isset($sequences) == false)
+if ((isset($sequences1) == false) OR (isset($sequences2) == false))
   {
-  $sequences = array();
-  $sequences['A'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
-  $sequences['A'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
-  $sequences['A'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
-  $sequences['A'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
-  $sequences['B'][0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
-  $sequences['B'][1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
-  $sequences['B'][2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
-  $sequences['B'][3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
+  $sequences1 = array();
+  $sequences1[0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
+  $sequences1[1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
+  $sequences1[2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
+  $sequences1[3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
+  $sequences2 = array();
+  $sequences2[0] = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
+  $sequences2[1] = array("Name"=>"Protein 2","Sequence"=>"AEDLMNFHFDWED");
+  $sequences2[2] = array("Name"=>"Protein 3","Sequence"=>"AEDLMNFRGASWE");
+  $sequences2[3] = array("Name"=>"Protein 4","Sequence"=>"AEDLMSDWRDSWE");
   }
 
 //Iteratively create interactome
@@ -25,7 +26,7 @@ while ($interactionskey1 < $interactionsend1)
   while ($interactionskey2 < $interactionsend2)
     {
     //Create interaction and add it to interactome array
-    $interaction = array("Name1"=>$sequences['A'][$interactionskey1]['Name'],"Name2"=>$sequences['A'][$interactionskey2]['Name'],"Sequence1"=>$sequences['B'][$interactionskey1]['Sequence'],"Sequence2"=>$sequences['B'][$interactionskey2]['Sequence']);
+    $interaction = array("Name1"=>$sequences1[$interactionskey1]['Name'],"Name2"=>$sequences2[$interactionskey2]['Name'],"Sequence1"=>$sequences1[$interactionskey1]['Sequence'],"Sequence2"=>$sequences2[$interactionskey2]['Sequence']);
     array_push($interactions,$interaction);
 
     $interactionskey2++;
