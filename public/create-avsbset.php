@@ -20,9 +20,9 @@ else
 
 //Iteratively create interactome
 $interactions = array();
-foreach ($sequences1 < $protein1)
+foreach ($sequences1 as $protein1)
   {
-  foreach ($sequences2 < $protein2)
+  foreach ($sequences2 as $protein2)
     {
     //Create interaction and add it to interactome array
     $interaction = array("Name1"=>$protein1['Name'],"Name2"=>$protein2['Name'],"Sequence1"=>$protein1['Sequence'],"Sequence2"=>$protein2['Sequence']);
