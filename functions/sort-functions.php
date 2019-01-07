@@ -9,9 +9,9 @@ Called using usort*/
 function interactomesort($a, $b)
 	{
 	//
-	if ($a['Peptide 1'] == $b['Peptide 1'])
+	if ($a['Name1'] == $b['Name1'])
 		{
-		if ($a['Peptide 2'] == $b['Peptide 2'])
+		if ($a['Name2'] == $b['Name2'])
 			{
 			return 0;
 			}
