@@ -5,11 +5,10 @@ function uniquefield($array,$field)
   $output = array();
   foreach ($array as $line)
     {
-    array_push($output,$line[$field]);
+    if (in_array($line[$field],$output) == false)
+      array_push($output,$line[$field]);
     }
 
-  $output = array_unique($output);
-  sort($output);
   Return $output;
   }
 
