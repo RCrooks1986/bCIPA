@@ -75,7 +75,6 @@ function bcipacontacts($interaction,$frame="")
         $contact = $resi1 . $resi2;
         array_push($cores,$contact);
 
-				array_push($cores,$contact);
 				$key1 = $key1+1;
 				$key2 = $key2+1;
 				$frame = "e";
@@ -129,66 +128,74 @@ function bcipacontacts($interaction,$frame="")
 	Return $output;
 	}
 //---FunctionBreak---
-/*Calculates the core score from the core contacts array
+/*Calculates the score from the contacts array
 
-$contacts is an array of core contacts found by bcipacontacts()
+$contacts is an array of contacts found by bcipacontacts()
+$type is whether the interaction is Core or ES
 
-Output is the core interactions score*/
+Output is the interactions score*/
 //---DocumentationBreak---
-function bcipacore($contacts)
+function bcipascoreinteractions($contacts,$type)
 	{
-	$contacts = implode($contacts,"-");
-	$scores = array("II","LL","VI","IV");
-	str_replace($scores,"",$contacts,$count);
-	$core = $count*-1.5;
-	$scores = array("VV","VL","LV","IL","IL","IR","RI","IK","KI");
-	str_replace($scores,"",$contacts,$count);
-	$coreadd = $count*-1;
-	$core = $core+$coreadd;
-	$scores = array("IA","AI","LA","AL","VA","AV","NN","IN","NI","IT","TI","LK","KL","LT","TL","RR");
-	str_replace($scores,"",$contacts,$count);
-	$coreadd = $count*-0.5;
-	$core = $core+$coreadd;
-	$scores = array("VT","TV");
-	str_replace($scores,"",$contacts,$count);
-	$coreadd = $count*0.5;
-	$core = $core+$coreadd;
-	Return $core;
-	}
-//---FunctionBreak---
-/*Calculates the electrostatic score from the electrostatic contacts array
+	//Select scores based on interaction types
+	$scores = array();
+	if ($type == "Core")
+		{
+		$scores['LL'] = -1.5;
+		$scores['II'] = -1.5;
+		$scores['IV'] = -1.5;
+		$scores['VV'] = -1;
+		$scores['LV'] = -1;
+		$scores['IL'] = -1;
+		$scores['IR'] = -1;
+		$scores['IK'] = -1;
+		$scores['AI'] = -0.5;
+		$scores['AL'] = -0.5;
+		$scores['AV'] = -0.5;
+		$scores['NN'] = -0.5;
+		$scores['IN'] = -0.5;
+		$scores['IT'] = -0.5;
+		$scores['KL'] = -0.5;
+		$scores['LT'] = -0.5;
+		$scores['RR'] = -0.5;
+		$scores['TV'] = 0.5;
+		}
+	elseif ($type == "ES")
+		{
+		$scores['ER'] = -2;
+		$scores['EK'] = -1.5;
+		$scores['KQ'] = -1.5;
+		$scores['QR'] = -1.5;
+		$scores['QQ'] = -1.5;
+		$scores['EQ'] = -1;
+		$scores['AQ'] = -0.5;
+		$scores['AR'] = -0.5;
+		$scores['DK'] = -0.5;
+		$scores['DR'] = -0.5;
+		$scores['KL'] = -0.5;
+		$scores['LT'] = -0.5;
+		$scores['KR'] = -0.5;
+		$scores['EE'] = 0.5;
+		$scores['KK'] = 0.5;
+		$scores['RR'] = 0.5;
+		$scores['DD'] = 1;
+		$scores['DE'] = 1;
+		$scores['TR'] = 1;
+		}
 
-$contacts is an array of electrostatic contacts found by bcipacontacts()
+	//Check each contact against scores array
+	$score = 0;
+	foreach ($contacts as $contact)
+		{
+		$contact = str_split($contact);
+		sort($contact);
+		$contact = implode("",$contact);
 
-Output is the electrostatic interactions score*/
-//---DocumentationBreak---
-function bcipaes($contacts)
-	{
-	$contacts = implode($contacts,"-");
-	$scores = array("RE","ER");
-	str_replace($scores,"",$contacts,$count);
-	$es = $count*-2;
-	$scores = array("KE","EK","KQ","QK","RQ","QR","QQ");
-	str_replace($scores,"",$contacts,$count);
-	$esadd = $count*-1.5;
-	$es = $es+$esadd;
-	$scores = array("QE","EQ");
-	str_replace($scores,"",$contacts,$count);
-	$esadd = $count*-1;
-	$es = $es+$esadd;
-	$scores = array("QA","AQ","RA","AR","KD","DK","RD","DR","KL","LK","TL","LT","RK","KR");
-	str_replace($scores,"",$contacts,$count);
-	$esadd = $count*-0.5;
-	$es = $es+$esadd;
-	$scores = array("EE","KK","RR");
-	str_replace($scores,"",$contacts,$count);
-	$esadd = $count*0.5;
-	$es = $es+$esadd;
-	$scores = array("DD","DE","ED","RT","TR");
-	str_replace($scores,"",$contacts,$count);
-	$esadd = $count*1;
-	$es = $es+$esadd;
-	Return $es;
+		if (array_key_exists($contact,$scores) == true)
+			$score = $score+$scores[$contact];
+		}
+
+	Return $score;
 	}
 //---FunctionBreak---
 /*Calculates the Tm of an interaction array using the bCIPA algorithm
@@ -208,8 +215,8 @@ function bcipa($interaction,$frame="a")
 
   //Get core and electrostatic interaction scores
 	$contacts = bcipacontacts($interaction,$frame);
-  $interaction['Core'] = bcipacore($contacts['Cores']);
-	$interaction['Electrostatics'] = bcipaes($contacts['Electrostatics']);
+  $interaction['Core'] = bcipascoreinteractions($contacts['Cores'],"Core");
+	$interaction['Electrostatics'] = bcipascoreinteractions($contacts['Electrostatics'],"ES");
 
   //Weight parameters that contribute towards Tm
 	$coretm = $interaction['Core']*-10.5716;
