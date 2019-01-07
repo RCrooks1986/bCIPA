@@ -52,6 +52,8 @@ if (isset($interactions) == false)
   $interactions[14] = array("Name1"=>"Test5","Name2"=>"Test5","bCIPATm"=>59);
   }
 
+usort($interactions,'interactomesort');
+
 //The field to chart the Tm of
 $heattomap = "bCIPATm";
 //Colourscheme to use
@@ -79,8 +81,15 @@ $outlinewidth = $canvaswidth-2;
 //Canvas HTML with name of canvas
 $canvashtml = '<canvas id="' . $canvasname . '" width="' . $canvaswidth . '" height="' . $canvasheight . '"></canvas>';
 
+//Javascript for heat chart
 $javascript = 'var canvas = document.getElementById("' . $canvasname . '");';
 $javascript = $javascript . 'var ctx = canvas.getContext("2d");';
+
+//Make background white
+$javascript = $javascript . 'ctx.beginPath();';
+$javascript = $javascript . 'ctx.fillStyle="#FFFFFF";';
+$javascript = $javascript . 'ctx.fillRect(0,0,' . $canvasheight . ',' . $canvaswidth . ');';
+$javascript = $javascript . 'ctx.stroke();';
 
 foreach ($columns as $columnkey=>$column)
   {
