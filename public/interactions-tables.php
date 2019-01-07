@@ -26,8 +26,6 @@ if (isset($interactions) == false)
 else
   $testing = false;
 
-usort($interactions,'interactomesort');
-
 //Output containers
 $htmlinteractionstable = array();
 $htmlinteractionstable[0] = '<th>Peptide 1</th><th>Peptide 2</th><th>T<sub>M</sub></th>';

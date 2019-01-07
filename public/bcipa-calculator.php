@@ -15,6 +15,4 @@ foreach ($interactions as $interactionskey=>$interaction)
     }
   $interactions[$interactionskey] = $interaction;
   }
-
-usort($interactions,'interactomesort');
 ?>

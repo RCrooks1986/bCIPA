@@ -26,6 +26,9 @@ function fieldsize($array)
       $size = $elementsize;
     }
 
+  //Add extra space
+  $size = $size+10;
+
   Return $size;
   }
 
@@ -51,8 +54,6 @@ if (isset($interactions) == false)
   $interactions[13] = array("Name1"=>"Test4","Name2"=>"Test5","bCIPATm"=>51);
   $interactions[14] = array("Name1"=>"Test5","Name2"=>"Test5","bCIPATm"=>59);
   }
-
-usort($interactions,'interactomesort');
 
 //The field to chart the Tm of
 $heattomap = "bCIPATm";
