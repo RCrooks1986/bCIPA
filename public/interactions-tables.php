@@ -1,4 +1,6 @@
 <?php
+include_once 'required-files.php';
+
 //Test interactions to use if they are not already specified
 if (isset($interactions) == false)
   {
@@ -30,17 +32,24 @@ usort($interactions,'interactomesort');
 $htmlinteractionstable = array();
 $htmlinteractionstable[0] = '<th>Peptide 1</th><th>Peptide 2</th><th>T<sub>M</sub></th>';
 $textinteractionstable = array();
-$textinteractionstable[0] = 'Peptide 1\tPeptide 2\tTm';
+$textinteractionstable[0] = 'Peptide 1	Peptide 2	Tm';
 
 //Output each interaction onto new line of both text and HTML
 foreach ($interactions as $interaction)
   {
   $htmlinteractionsline = '<td>' . $interaction['Name1'] . '</td><td>' . $interaction['Name2'] . '</td><td>' . $interaction['bCIPATm'] . '</td>';
-  $textinteractionsline = $interaction['Name1'] . '\t' . $interaction['Name2'] . '\t' . $interaction['bCIPATm'];
+  $textinteractionsline = $interaction['Name1'] . '	' . $interaction['Name2'] . '	' . $interaction['bCIPATm'];
   array_push($htmlinteractionstable,$htmlinteractionsline);
   array_push($textinteractionstable,$textinteractionsline);
   }
 
 $htmlinteractionstable = '<table class="scientific"><tr>' . implode('</tr><tr>',$htmlinteractionstable) . '</tr></table>';
-$textinteractionstable = '<textarea cols="30" rows="10">' . implode('\r\n',$textinteractionstable) . '</textarea>';
+$textinteractionstable = '<textarea cols="40" rows="10">' . implode('&#10;',$textinteractionstable) . '</textarea>';
+
+if ($testing == true)
+  {
+    echo $htmlinteractionstable;
+    echo "<br>";
+    echo $textinteractionstable;
+  }
 ?>
