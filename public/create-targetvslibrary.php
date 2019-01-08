@@ -1,6 +1,6 @@
 <?php
 //Sequences to use if sequences not already set
-if ((isset($sequences1) == false) OR (isset($sequences2) == false))
+if ((isset($library) == false) OR (isset($target) == false))
   {
   $target = array("Name"=>"Protein 1","Sequence"=>"AEDSDFGDDSSWE");
   $library = array();
