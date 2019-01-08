@@ -26,6 +26,11 @@ if (isset($interactions) == false)
 else
   $testing = false;
 
+if (isset($includefields) == false)
+  {
+  $includefields = array("Name1","Name2","bCIPATm")
+  }
+
 //Output containers
 $htmlinteractionstable = array();
 $htmlinteractionstable[0] = '<th>Peptide 1</th><th>Peptide 2</th><th>T<sub>M</sub></th>';
