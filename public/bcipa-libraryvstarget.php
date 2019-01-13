@@ -33,10 +33,6 @@ if (isset($target) == false)
 else
   $testing = false;
 
-//Default to displaying all sequences, can limit output to best n if preferred
-if (isset($displaylimit) == false)
-  $displaylimit = INF();
-
 //Assign Williams scores to both sets of sequences
 $sequences = $library;
 include 'assign-williams.php';
@@ -46,7 +42,6 @@ include 'assign-williams.php';
 $target = $sequences[0];
 unset($sequences);
 
-//Create the interactions between all library members and the target
 include 'create-targetvslibrary.php';
 
 //Calculate bCIPA score
