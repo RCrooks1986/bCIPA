@@ -28,20 +28,54 @@ else
 
 if (isset($includefields) == false)
   {
-  $includefields = array("Name1","Name2","bCIPATm")
+  $includefields = array("Name1","Name2","bCIPATm");
   }
 
 //Output containers
-$htmlinteractionstable = array();
-$htmlinteractionstable[0] = '<th>Peptide 1</th><th>Peptide 2</th><th>T<sub>M</sub></th>';
-$textinteractionstable = array();
-$textinteractionstable[0] = 'Peptide 1	Peptide 2	Tm';
+$htmlinteractionstable = array("");
+$textinteractionstable = array("");
+if ((in_array("Name1",$includefields) == true) AND (in_array("Name1",$includefields) == true))
+  {
+  $htmlinteractionstable[0] = $htmlinteractionstable[0] . '<th>Peptide 1</th><th>Peptide 2</th>';
+  $textinteractionstable[0] = $textinteractionstable[0] . 'Peptide 1	Peptide 2';
+  }
+elseif ((in_array("Name1",$includefields) == true) OR (in_array("Name2",$includefields) == true))
+  {
+  $htmlinteractionstable[0] = $htmlinteractionstable[0] . '<th>Peptide</th>';
+  $textinteractionstable[0] = $textinteractionstable[0] . 'Peptide';
+  }
+
+if (in_array("bCIPATm",$includefields) == true)
+  {
+  $htmlinteractionstable[0] = $htmlinteractionstable[0] . '<th>T<sub>M</sub></th>';
+  $textinteractionstable[0] = $textinteractionstable[0] . '	Tm';
+  }
 
 //Output each interaction onto new line of both text and HTML
 foreach ($interactions as $interaction)
   {
-  $htmlinteractionsline = '<td>' . $interaction['Name1'] . '</td><td>' . $interaction['Name2'] . '</td><td>' . $interaction['bCIPATm'] . '</td>';
-  $textinteractionsline = $interaction['Name1'] . '	' . $interaction['Name2'] . '	' . $interaction['bCIPATm'];
+  if ((in_array("Name1",$includefields) == true) AND (in_array("Name1",$includefields) == true))
+    {
+    $htmlinteractionsline = '<td>' . $interaction['Name1'] . '</td><td>' . $interaction['Name2'] . '</td>';
+    $textinteractionsline = $interaction['Name1'] . '	' . $interaction['Name2'];
+    }
+  elseif ((in_array("Name1",$includefields) == true))
+    {
+    $htmlinteractionsline = '<td>' . $interaction['Name1'] . '</td>';
+    $textinteractionsline = $interaction['Name1'];
+    }
+  elseif ((in_array("Name2",$includefields) == true))
+    {
+    $htmlinteractionsline = '<td>' . $interaction['Name2'] . '</td>';
+    $textinteractionsline = $interaction['Name2'];
+    }
+
+  if (in_array("bCIPATm",$includefields) == true)
+    {
+    $htmlinteractionsline = $htmlinteractionsline . '<td>' . $interaction['bCIPATm'] . '</td>';
+    $textinteractionsline = $textinteractionsline . '	' . $interaction['bCIPATm'];
+    }
+
   array_push($htmlinteractionstable,$htmlinteractionsline);
   array_push($textinteractionstable,$textinteractionsline);
   }
