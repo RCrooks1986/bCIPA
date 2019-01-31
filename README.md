@@ -51,9 +51,14 @@ $textinteractionstable is a table in a text area which can be copied and pasted 
 In future these output (interactions-tables.php, sequences-to-display.php and interactions-heat.php) generators may be rationalised into a single script.
 
 References:
-To reference this script, please cite the following
+To reference this script, please cite the following:
+
 Crooks, R. O., Lathbridge, A., Panek, A. S. and Mason, J. M. (2017) Computational Prediction and Design for Creating Iteratively Larger Heterospecific Coiled Coil Sets. Biochemistry. 56: 1573-1584.
+
 Crooks, R. O., Baxter, D., Panek, A. S., Lubben, A. T. and Mason, J. M. (2016) Deriving Heterospecific Self-Assembling Protein-Protein Interactions Using a Computational Interactome Screen. J Mol Biol. 428: 385-398.
+
 For the original algorithm:
+
 Hagemann, U. B., Mason, J. M., Müller, K. M. and Arndt, K. M. (2008) Selectional and mutational scope of peptides sequestering the Jun-Fos coiled-coil domain. J Mol Biol. 381: 73-88.
+
 Mason, J. M., Schmitz, M. A., Müller, K. M. and Arndt, K. M. (2006) Semirational design of Jun-Fos coiled coils with increased affinity: Universal implications for leucine zipper prediction and design. Proc Natl Acad Sci U S A. 103: 8989-94.
