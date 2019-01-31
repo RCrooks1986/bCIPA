@@ -39,6 +39,8 @@ $offset is the offset that the leucine zippers are offset by, default is 0 and i
 Output:
 $interactions is an array of the interactions, where each element is an array containing the elements ['bCIPATm'], ['Name1'], ['Name2'], ['Sequence1'] and ['Sequence2'] elements.
 
+Output Formatting
+
 An interaction table creation wizard script is interactions-tables.php
 Inputs:
 $interactions is an array of the interactions, where each element is an array containing the elements ['bCIPATm'], ['Name1'], ['Name2'], ['Sequence1'] and ['Sequence2'] elements.
